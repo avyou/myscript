@@ -23,7 +23,7 @@ function auth()
         if auth_user(username, password) then
             local lqtk = ngx.md5(ngx.var.remote_addr..os.time()..math.random(1000000000,10000000000))
             local expires = cookie_expire  -- 1 hours
-            ngx.header["Set-Cookie"] = "lqtk="..lqtk..";Domain=.5usport.com; Path=/; Expires=" .. ngx.cookie_time(ngx.time() + expires)
+            ngx.header["Set-Cookie"] = "lqtk="..lqtk..";Domain=.mytest.com; Path=/; Expires=" .. ngx.cookie_time(ngx.time() + expires)
             red:set(lqtk,lqtk)
             red:expire(lqtk,lqtk,cookie_expire)
             redis_close(red)
@@ -82,7 +82,7 @@ function auth_user(username,password)
     if res and res ~= ngx.null then
         local user = res[1] or ""
         local pass = res[2] or ""
-        local keyString = "liaoqiu-5usport-com"
+        local keyString = "www-mytest-com"
         local password = ngx.md5(password..keyString)
         if user ~="" and pass ~= "" and  username == user and password == pass then
             --ngx.say("username: " .. user .. " , redis query password: " .. pass)
